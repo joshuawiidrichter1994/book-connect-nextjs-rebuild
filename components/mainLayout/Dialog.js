@@ -6,20 +6,20 @@ export default function Dialog() {
       <dialog className={styles.overlay} data-list-active>
         <div className={styles.overlay__preview}>
           <img className={styles.overlay__blur} data-list-blur src="" />
-          <img className="overlay__image" data-list-image src="" />
+          <img className={styles.overlay__image} data-list-image src="" />
         </div>
         <div className={styles.overlay__content}>
           <h3 className={styles.overlay__title} data-list-title></h3>
           <div className={styles.overlay__data} data-list-subtitle></div>
           <p
-            className="overlay__data overlay__data_secondary"
+            className={`${styles.overlay__data} ${styles.overlay__data_secondary}`}
             data-list-description
           ></p>
         </div>
 
         <div className={styles.overlay__row}>
           <button
-            className="overlay__button overlay__button_primary"
+            className={`${styles.overlay__button} ${styles.overlay__button_primary}`}
             data-list-close
           >
             Close
@@ -43,7 +43,7 @@ export default function Dialog() {
             <label className={styles.overlay__field}>
               <div className={styles.overlay__label}>Genre</div>
               <select
-                className="overlay__input overlay__input_select"
+                className={`${styles.overlay__input} ${styles.overlay__input_select}`}
                 data-search-genres
                 name="genre"
               ></select>
@@ -52,7 +52,7 @@ export default function Dialog() {
             <label className={styles.overlay__field}>
               <div className={styles.overlay__label}>Author</div>
               <select
-                className="overlay__input overlay__input_select"
+                className={`${styles.overlay__input} ${styles.overlay__input_select}`}
                 data-search-authors
                 name="author"
               ></select>
@@ -64,7 +64,7 @@ export default function Dialog() {
               Cancel
             </button>
             <button
-              className="overlay__button overlay__button_primary"
+              className={`${styles.overlay__button} ${styles.overlay__button_primary}`}
               type="submit"
               form="search"
             >
@@ -85,7 +85,7 @@ export default function Dialog() {
               <div className={styles.overlay__label}>Theme</div>
 
               <select
-                className="overlay__input overlay__input_select"
+                className={`${styles.overlay__input} ${styles.overlay__input_select}`}
                 data-settings-theme
                 name="theme"
               >
@@ -100,7 +100,7 @@ export default function Dialog() {
               Cancel
             </button>
             <button
-              className="overlay__button overlay__button_primary"
+              className={`${styles.overlay__button} ${styles.overlay__button_primary}`}
               type="submit"
               form="settings"
             >
