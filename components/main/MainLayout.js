@@ -1,27 +1,14 @@
-import BookCard from "./BookCard";
-import { books, authors, genres } from "../../data/data.js";
+import React from 'react';
+import BookCard from './BookCard';
+import { books, authors, genres } from '../../data/data.js';
+import styles from './page.module.css'; // Make sure to import your CSS module here
+
 /**
  * @typedef {object} Filters
  * @property {string | null} phrase
  * @property {string | 'any'} genre
  * @property {string | 'any'} author
  */
-
-export default function MainLayout() {
-  return (
-    <>
-      <main className={styles.list}>
-        <div className={styles.list__items} data-list-items>
-          <BookCard />
-        </div>
-        <div className={styles.list__message} data-list-message>
-          No results found. Your filters might be too narrow.
-        </div>
-        <button className={styles.list__button} data-list-button></button>
-      </main>
-    </>
-  );
-}
 
 /**
  * @param {string} id
@@ -39,34 +26,43 @@ export const getBookById = (id) => {
 };
 
 /**
- * @returns {HTMLElement}
+ * @returns {React.ReactNode}
  */
 export const createAuthorsFragment = () => {
-  const fragment = document.createDocumentFragment();
-  const option = createOption("any", "All Authors");
-  fragment.appendChild(option);
+  const optionElements = [];
+  optionElements.push(<option key="any" value="any">All Authors</option>);
 
   for (const [id, name] of Object.entries(authors)) {
-    const option = createOption(id, name);
-    fragment.appendChild(option);
+    optionElements.push(<option key={id} value={id}>{name}</option>);
   }
 
-  return fragment;
+  return optionElements;
 };
 
 /**
- *
- * @returns
+ * @returns {React.ReactNode}
  */
 export const createGenresFragment = () => {
-  const fragment = document.createDocumentFragment();
-  const option = createOption("any", "All Genres");
-  fragment.appendChild(option);
+  const optionElements = [];
+  optionElements.push(<option key="any" value="any">All Genres</option>);
 
   for (const [id, name] of Object.entries(genres)) {
-    const option = createOption(id, name);
-    fragment.appendChild(option);
+    optionElements.push(<option key={id} value={id}>{name}</option>);
   }
 
-  return fragment;
+  return optionElements;
 };
+
+export default function MainLayout() {
+  return (
+    <main className={styles.list}>
+      <div className={styles.list__items} data-list-items>
+        <BookCard />
+      </div>
+      <div className={styles.list__message} data-list-message>
+        No results found. Your filters might be too narrow.
+      </div>
+      <button className={styles.list__button} data-list-button></button>
+    </main>
+  );
+}
