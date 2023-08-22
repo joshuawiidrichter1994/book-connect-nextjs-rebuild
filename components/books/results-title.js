@@ -11,8 +11,8 @@ function ResultsTitle(props) {
 
   return (
     <section className={classes.title}>
-      <h1>Events in {humanReadableDate}</h1>
-      <Button link='/events'>Show all events</Button>
+      <h1>Books in {humanReadableDate}</h1>
+      <Button link='/searchModelOpen'>Show all books</Button>
     </section>
   );
 }
