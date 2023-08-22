@@ -78,7 +78,7 @@ export default function Home(props) {
           .items()
           .appendChild(createPreviewsFragment(matches, [start, end]));
         actions.list.updateRemaining();
-        setPage = newPage;
+        page = newPage;
       },
 
       recreate: (display) => {
@@ -335,19 +335,6 @@ const createAuthorsFragment = () => {
   return fragment
 }
 
-  const initialise = () => {
-    DOM.list
-      .items()
-      .appendChild(createPreviewsFragment(books, [0, BOOKS_PER_PAGE]));
-    DOM.search.genres().appendChild(createGenresFragment(genres));
-    DOM.search.authors().appendChild(createAuthorsFragment(authors));
-    DOM.settings.theme().value = isDarkMode() ? "night" : "day";
-    setTheme(isDarkMode() ? "night" : "day");
-
-    const remaining = books.length - BOOKS_PER_PAGE;
-    DOM.list.button().innerText = `Show more (${remaining})`;
-  };
-
   /**
    * @param {string} attribute
    */
@@ -377,7 +364,21 @@ const getBookById = (id) => {
 }
 
   useEffect(() => {
-    initialise();
+
+   // const initialise = () => {
+      DOM.list
+        .items()
+        .appendChild(createPreviewsFragment(books, [0, BOOKS_PER_PAGE]));
+      DOM.search.genres().appendChild(createGenresFragment(genres));
+      DOM.search.authors().appendChild(createAuthorsFragment(authors));
+      DOM.settings.theme().value = isDarkMode() ? "night" : "day";
+      setTheme(isDarkMode() ? "night" : "day");
+  
+      const remaining = books.length - BOOKS_PER_PAGE;
+      DOM.list.button().innerText = `Show more (${remaining})`;
+  //  };
+
+    //initialise();
 
     // Attach event listeners
     DOM.search.cancel().addEventListener("click", actions.search.cancel);
@@ -393,7 +394,7 @@ const getBookById = (id) => {
     // Additional event listeners from the provided actions object
     DOM.header.search().addEventListener("click", actions.header.search);
     DOM.header.settings().addEventListener("click", actions.header.settings);
-  }, []);
+  }, [BOOKS_PER_PAGE, DOM.header, DOM.list, DOM.search, DOM.settings, actions.header.search, actions.header.settings, actions.list.close, actions.list.increase, actions.list.open, actions.search.cancel, actions.search.submit, actions.settings.cancel, actions.settings.submit, authors, books, createAuthorsFragment, createGenresFragment, createPreviewsFragment, genres, setTheme]);
 
   return (
     <>
