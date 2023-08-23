@@ -1,5 +1,5 @@
 {
-  "name": "book-connect-nextjs",
+  "name": "book-connect-nextjs-rebuild",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,8 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "13.4.16",
+    "eslint": "8.47.0",
+    "eslint-config-next": "13.4.17",
+    "next": "13.4.17",
     "react": "18.2.0",
     "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "nextjs": "^0.0.3"
   }
 }

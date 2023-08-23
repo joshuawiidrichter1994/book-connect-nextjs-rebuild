@@ -1,0 +1,42 @@
+:root {
+    --color-blue: 0, 150, 255;
+    --color-force-dark: 10, 10, 20;
+    --color-force-light: 255, 255, 255;
+    --color-dark: 10, 10, 20;
+    --color-light: 255, 255, 255;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-dark:  255, 255, 255; 
+      --color-light: 10, 10, 20;
+    }
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    min-height: 100vh;
+    min-width: 100%;
+    font-family: Roboto, sans-serif;
+    color: rgba(var(--color-dark), 0.9);
+    background: linear-gradient(0deg, rgba(var(--color-dark), 0.2), rgba(var(--color-dark), 0.1)), rgba(var(--color-light), 1);
+  }
+  
+  option {
+    background-color: rgba(var(--color-light), 1);
+    color: rgba(var(--color-dark), 0.8);
+  }
+  
+  @keyframes enter {
+    from {
+      transform: translateY(10rem);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+ 
