@@ -1,4 +1,3 @@
-
 import { Inter } from "next/font/google";
 import path from "path";
 import fs from "fs/promises";
@@ -445,14 +444,10 @@ export async function getStaticProps() {
      * ...
      *
      * @typedef {object} Book
-     * @prop {string} id
-     * @prop {string} title
-     * @prop {string} author
-     * @prop {string} image
+     * @prop {string[]} books
+     * @prop {string[]} authors
+     * @prop {number} BOOKS_PER_PAGE
      * @prop {string[]} genres
-     * @prop {string} published
-     * @prop {number} pages
-     * @prop {number} popularity
      */
     props: {
       Book: data.Book,
