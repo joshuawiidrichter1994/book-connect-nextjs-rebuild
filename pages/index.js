@@ -9,11 +9,13 @@ import Main from "@/components/main/main";
 import Search from "@/components/search/search";
 import ThemeSettings from "@/components/themeSettings/themeSettings";
 import BookPreview from "@/components/bookPreview/bookPreview";
-
+import { useRouter } from "next/router"; // Import the useRouter hook
 const inter = Inter({ subsets: ["latin"] });
+
 
 export default function Home(props) {
   const { Book, books, authors, BOOKS_PER_PAGE, genres } = props;
+  const router = useRouter();
 
   /**
    * @type {number}
@@ -109,32 +111,26 @@ export default function Home(props) {
         DOM.list.active().open = false;
       },
 
-      open: (event) => {
-        const pathArray = Array.from(event.path || event.composedPath());
+open: (event) => {
+  const pathArray = Array.from(event.path || event.composedPath());
 
-        /**
-         * @type {null | Book}
-         */
-        let active = null;
+  /**
+   * @type {null | Book}
+   */
+  let active = null;
 
-        for (const node of pathArray) {
-          if (active) break;
-          const previewId = node?.dataset?.preview;
-          if (previewId) active = getBookById(previewId);
-        }
+  for (const node of pathArray) {
+    if (active) break;
+    const previewId = node?.dataset?.preview;
+    if (previewId) active = getBookById(previewId);
+  }
 
-        if (!active) return;
+  if (!active) return;
 
-        const year = new Date(active.published).getFullYear();
+  // Instead of opening a preview, navigate to the dynamic route
+  router.push(`/preview/${active.id}`);
+},
 
-        DOM.list.active().open = true;
-        DOM.list.blur().src = active.image;
-        DOM.list.image().src = active.image;
-        DOM.list.title().innerText = active.title;
-        DOM.list.subtitle().innerText = `${authors[active.author]} (${year})`;
-
-        DOM.list.description().innerText = active.description;
-      },
     },
 
     header: {

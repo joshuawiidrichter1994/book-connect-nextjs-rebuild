@@ -6,8 +6,8 @@ function BookPreview() {
   return (
     <dialog className={styles.overlay} data-list-active>
       <div className={styles.overlay__preview}>
-        <Image className={styles.overlay__blur} data-list-blur src="" />
-        <Image className={styles.overlay__image} data-list-image src="" />
+        <Image className={styles.overlay__blur} data-list-blur src="" alt=""/>
+        <Image className={styles.overlay__image} data-list-image src="" alt=""/>
       </div>
       <div className={styles.overlay__content}>
         <h3 className={styles.overlay__title} data-list-title></h3>

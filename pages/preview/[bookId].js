@@ -84,8 +84,10 @@ export default function Home(props) {
       },
 
       close: () => {
-        DOM.list.active().open = false;
+        //DOM.list.active().open = false;
+        router.push('/'); // Navigate back to the index page
       },
+      
 
       open: (book) => { // Remove the event parameter and use the `book` parameter
         const year = new Date(book.published).getFullYear();
