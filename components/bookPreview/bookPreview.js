@@ -1,6 +1,8 @@
 import styles from "./bookPreview.module.css";
 import Image from "next/image";
 import { DOM } from "../../dom/dom";
+import { useEffect } from "react";
+import { useRouter } from 'next/router'; // Import the useRouter hook
 
 function BookPreview(props) {
   const { Book, books, authors, BOOKS_PER_PAGE, genres } = props;
@@ -49,22 +51,42 @@ function BookPreview(props) {
         actions.list.updateRemaining();
         window.scrollTo({ top: 0, behavior: "smooth" });
       },
-
+      
       close: () => {
-        DOM.list.active().open = false;
+        //DOM.list.active().open = false;
+        router.push('/'); // Navigate back to the index page
+      },
+      
+
+      open: (book) => { // Remove the event parameter and use the `book` parameter
+        const year = new Date(book.published).getFullYear();
+      
+        DOM.list.active().open = true;
+        DOM.list.blur().src = book.image;
+        DOM.list.image().src = book.image;
+        DOM.list.title().innerText = book.title;
+        DOM.list.subtitle().innerText = `${authors[book.author]} (${year})`;
+      
+        DOM.list.description().innerText = book.description;
       },
 
-      open: (event) => {
-        const previewId = event.target.dataset.preview;
-
-        if (previewId) {
-          const active = getBookById(previewId);
-          // Instead of opening a preview, navigate to the dynamic route
-          router.push(`/preview/${active.id}`);
-        }
-      },
     },
   };
+
+  const router = useRouter(); // Initialize the useRouter hook
+
+  useEffect(() => {
+    // Extract the bookId from the URL parameters
+    const { bookId } = router.query;
+
+    // Find the book with the extracted bookId
+    const selectedBook = books.find((book) => book.id === bookId);
+
+    // Open the previews fragment for the selected book
+    if (selectedBook) {
+      actions.list.open(selectedBook);
+    }
+  }, []);
 
   return (
     <dialog className={styles.overlay} data-list-active>
