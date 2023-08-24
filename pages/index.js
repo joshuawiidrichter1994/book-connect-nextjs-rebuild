@@ -12,7 +12,7 @@ import BookPreview from "@/components/bookComponents/bookPreview/bookPreview";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home(props) {
-  const { Book, books, authors, BOOKS_PER_PAGE, genres } = props;
+  const { Book, books, authors, BOOKS_PER_PAGE, genres, author: authorId, id, image, title } = props;
 
   return (
     <>

@@ -1,6 +1,7 @@
 import styles from "./bookDisplay.module.css";
 import { useRouter } from "next/router"; // Import the useRouter hook
 import { useEffect } from "react";
+import BookItem from "../book/bookItem";
 
 function BookDisplay(props) {
   const { Book, books, authors, BOOKS_PER_PAGE, genres } = props;
@@ -24,9 +25,6 @@ function BookDisplay(props) {
     const start = (newPage - 1) * BOOKS_PER_PAGE;
     const end = newPage * BOOKS_PER_PAGE;
 
-    document
-      .querySelector(`[data-list-items]`)
-      .appendChild(createPreviewsFragment(matches, [start, end]));
     updateRemaining();
     page = newPage;
   };
@@ -46,7 +44,7 @@ function BookDisplay(props) {
     }
 
     document.querySelector(`[data-list-items]`).innerHTML = "";
-    const fragments = createPreviewsFragment(display, [0, 36]);
+    //const fragments = createPreviewsFragment(display, [0, 36]);
     document.querySelector(`[data-list-items]`).appendChild(fragments);
     updateRemaining();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -80,9 +78,8 @@ function BookDisplay(props) {
   };
 
   const initialise = () => {
-    document
-      .querySelector(`[data-list-items]`)
-      .appendChild(createPreviewsFragment(books, [0, BOOKS_PER_PAGE]));
+    document.querySelector(`[data-list-items]`);
+    //.appendChild(createPreviewsFragment(books, [0, BOOKS_PER_PAGE]));
     document
       .querySelector(`[data-search-genres]`)
       .appendChild(createGenresFragment(genres));
@@ -114,46 +111,7 @@ function BookDisplay(props) {
 
     return result;
   };
-
-  /**
-   * ...
-   *
-   * @param {Book} props
-   * @returns {HTMLButtonElement}
-   */
-  const createPreview = (props) => {
-    const { author: authorId, id, image, title } = props;
-
-    const element = document.createElement("button");
-    element.classList = styles.preview;
-    element.setAttribute("data-preview", id);
-
-    element.innerHTML =
-      /* html */ `
-        <img
-            class=` +
-      styles.preview__image +
-      `
-            src=` +
-      image +
-      `
-        />
-        
-        <div className=` +
-      styles.preview__info +
-      `>
-            <h3 className=` +
-      styles.preview__title +
-      `>${title}</h3>
-            <div className=` +
-      styles.preview__author +
-      `>${authors[authorId]}</div>
-        </div>
-    `;
-
-    return element;
-  };
-
+  /*
   const createPreviewsFragment = (source, range) => {
     if (!source || !Array.isArray(source)) throw new Error("Source required");
     if (!range || range.length < 2)
@@ -166,7 +124,7 @@ function BookDisplay(props) {
     /**
      * @type {Book[]}
      */
-    const extracted = source.slice(start, end);
+  /*const extracted = source.slice(start, end);
 
     for (const { author, image, title, id } of extracted) {
       const preview = createPreview({
@@ -180,7 +138,7 @@ function BookDisplay(props) {
     }
 
     return fragment;
-  };
+  };*/
 
   /**
    * @returns {HTMLElement}
@@ -252,7 +210,17 @@ function BookDisplay(props) {
 
   return (
     <main className={styles.list}>
-      <div className={styles.list__items} onClick={open} data-list-items></div>
+      <div className={styles.list__items} onClick={open} data-list-items>
+        {books.map((book) => (
+          <BookItem
+            key={book.id}
+            id={book.id}
+            book={book}
+            authors={authors} // Pass the authors data
+            authorId={book.author}
+          />
+        ))}
+      </div>
       <div className={styles.list__message} data-list-message>
         No results found. Your filters might be too narrow.
       </div>
