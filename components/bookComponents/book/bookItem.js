@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import styles from "./bookItem.module.css";
 
 function BookItem(props) {

@@ -49,15 +49,6 @@ export async function getStaticProps() {
       authors: data.authors,
       BOOKS_PER_PAGE: data.BOOKS_PER_PAGE,
       genres: data.genres,
-      /**
-       * @type {number}
-       */
-      page: 1,
-
-      /**
-       * @type {Book[]}
-       */
-      matches: data.books,
     },
   };
 }
