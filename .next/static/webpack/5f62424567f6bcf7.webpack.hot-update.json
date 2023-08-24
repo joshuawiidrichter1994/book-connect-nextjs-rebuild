@@ -1,0 +1,1 @@
+{"c":["pages/index","pages/preview/[bookId]","webpack"],"r":["pages/preview/[bookId]"],"m":["./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?absolutePagePath=%2FUsers%2Frels%2FDocuments%2Fbook-connect-nextjs-rebuild%2Fpages%2Fpreview%2F%5BbookId%5D.js&page=%2Fpreview%2F%5BbookId%5D!","./pages/preview/[bookId].js"]}

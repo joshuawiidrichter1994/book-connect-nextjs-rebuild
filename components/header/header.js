@@ -1,5 +1,4 @@
 import styles from "./header.module.css";
-import { DOM } from "../../dom/dom";
 
 function Header(props) {
   const { Book, books, authors, BOOKS_PER_PAGE, genres } = props;
@@ -8,12 +7,12 @@ function Header(props) {
   const actions = {
     header: {
       search: () => {
-        DOM.search.overlay().open = true;
-        DOM.search.title().focus();
+        document.querySelector(`[data-search-overlay]`).open = true;
+        document.querySelector(`[data-search-title]`).focus();
       },
 
       settings: () => {
-        DOM.settings.overlay().open = true;
+        document.querySelector(`[data-settings-overlay]`).open = true;
       },
     },
   };

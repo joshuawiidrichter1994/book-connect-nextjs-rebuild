@@ -1,6 +1,5 @@
 import styles from "./bookPreview.module.css";
 import Image from "next/image";
-import { DOM } from "../../../dom/dom";
 import { useEffect } from "react";
 import { useRouter } from 'next/router'; // Import the useRouter hook
 
@@ -16,8 +15,8 @@ function BookPreview(props) {
 
         const remaining = hasRemaining ? initial : 0;
 
-        DOM.list.button().disabled = !hasRemaining;
-        DOM.list.button().innerHTML = /* html */ `
+        document.querySelector(`[data-list-button]`).disabled = !hasRemaining;
+        document.querySelector(`[data-list-button]`).innerHTML = /* html */ `
                 <span>Show more</span>
                 <span class="list__remaining"> (${remaining})</span>
             `;
@@ -40,20 +39,19 @@ function BookPreview(props) {
         page = 1;
 
         if (display.length < 1) {
-          DOM.list.message().classList.add("list__message_show");
+          document.querySelector(`[data-list-message]`).classList.add("list__message_show");
         } else {
-          DOM.list.message().classList.remove("list__message_show");
+          document.querySelector(`[data-list-message]`).classList.remove("list__message_show");
         }
 
-        DOM.list.items().innerHTML = "";
+        document.querySelector(`[data-list-items]`).innerHTML = "";
         const fragments = createPreviewsFragment(display, [0, 36]);
-        DOM.list.items().appendChild(fragments);
+        document.querySelector(`[data-list-items]`).appendChild(fragments);
         actions.list.updateRemaining();
         window.scrollTo({ top: 0, behavior: "smooth" });
       },
       
       close: () => {
-        //DOM.list.active().open = false;
         router.push('/'); // Navigate back to the index page
       },
       
@@ -61,13 +59,12 @@ function BookPreview(props) {
       open: (book) => { // Remove the event parameter and use the `book` parameter
         const year = new Date(book.published).getFullYear();
       
-        DOM.list.active().open = true;
-        DOM.list.blur().src = book.image;
-        DOM.list.image().src = book.image;
-        DOM.list.title().innerText = book.title;
-        DOM.list.subtitle().innerText = `${authors[book.author]} (${year})`;
-      
-        DOM.list.description().innerText = book.description;
+        document.querySelector(`[data-list-active]`).open = true;
+        document.querySelector(`[data-list-blur]`).src = book.image;
+        document.querySelector(`[data-list-image]`).src = book.image;
+        document.querySelector(`[data-list-title]`).innerText = book.title;
+        document.querySelector(`[data-list-subtitle]`).innerText = `${authors[book.author]} (${year})`;
+        document.querySelector(`[data-list-description]`).innerText = book.description;
       },
 
     },

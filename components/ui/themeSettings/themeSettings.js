@@ -1,5 +1,4 @@
 import styles from "./themeSettings.module.css";
-import { DOM } from "../../../dom/dom";
 
 function ThemeSettings(props) {
   const { Book } = props;
@@ -18,14 +17,14 @@ function ThemeSettings(props) {
   const actions = {
     settings: {
       cancel: () => {
-        DOM.settings.overlay().open = false;
+        document.querySelector(`[data-settings-overlay]`).open = false;
       },
 
       submit: (event) => {
         event.preventDefault();
         const { theme } = convertSubmit(event);
         setTheme(theme || "day");
-        DOM.settings.overlay().open = false;
+        document.querySelector(`[data-settings-overlay]`).open = false;
       },
     },
   };

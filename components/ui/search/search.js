@@ -1,5 +1,4 @@
 import styles from "./search.module.css";
-import { DOM } from "../../../dom/dom";
 
 function Search(props) {
   const { Book, books, authors, BOOKS_PER_PAGE, genres } = props;
@@ -40,7 +39,7 @@ function Search(props) {
 
     search: {
       cancel: () => {
-        DOM.search.overlay().open = false;
+        document.querySelector(`[data-search-overlay]`).open = false;
       },
 
       submit: (event) => {
@@ -48,7 +47,7 @@ function Search(props) {
         const response = convertSubmit(event);
         const result = filter(books, response);
         actions.list.recreate(result);
-        DOM.search.overlay().open = false;
+        document.querySelector(`[data-search-overlay]`).open = false;
       },
     },
   };

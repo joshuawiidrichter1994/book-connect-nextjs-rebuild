@@ -1,7 +1,6 @@
 import styles from "./bookDisplay.module.css";
 import { useRouter } from "next/router"; // Import the useRouter hook
 import { useEffect } from "react";
-import { DOM } from "../../../dom/dom";
 
 function BookDisplay(props) {
   const { Book, books, authors, BOOKS_PER_PAGE, genres } = props;
@@ -15,8 +14,8 @@ function BookDisplay(props) {
 
         const remaining = hasRemaining ? initial : 0;
 
-        DOM.list.button().disabled = !hasRemaining;
-        DOM.list.button().innerHTML = /* html */ `
+        document.querySelector(`[data-list-button]`).disabled = !hasRemaining;
+        document.querySelector(`[data-list-button]`).innerHTML = /* html */ `
                 <span>Show more</span>
                 <span class="list__remaining"> (${remaining})</span>
             `;
@@ -27,9 +26,7 @@ function BookDisplay(props) {
         const start = (newPage - 1) * BOOKS_PER_PAGE;
         const end = newPage * BOOKS_PER_PAGE;
 
-        DOM.list
-          .items()
-          .appendChild(createPreviewsFragment(matches, [start, end]));
+        document.querySelector(`[data-list-items]`).appendChild(createPreviewsFragment(matches, [start, end]));
         actions.list.updateRemaining();
         page = newPage;
       },
@@ -39,20 +36,20 @@ function BookDisplay(props) {
         page = 1;
 
         if (display.length < 1) {
-          DOM.list.message().classList.add("list__message_show");
+          document.querySelector(`[data-list-message]`).classList.add("list__message_show");
         } else {
-          DOM.list.message().classList.remove("list__message_show");
+          document.querySelector(`[data-list-message]`).classList.remove("list__message_show");
         }
 
-        DOM.list.items().innerHTML = "";
+        document.querySelector(`[data-list-items]`).innerHTML = "";
         const fragments = createPreviewsFragment(display, [0, 36]);
-        DOM.list.items().appendChild(fragments);
+        document.querySelector(`[data-list-items]`).appendChild(fragments);
         actions.list.updateRemaining();
         window.scrollTo({ top: 0, behavior: "smooth" });
       },
 
       close: () => {
-        DOM.list.active().open = false;
+        document.querySelector(`[data-list-active]`).open = false;
       },
 
       open: (event) => {
@@ -81,16 +78,14 @@ function BookDisplay(props) {
   };
 
   const initialise = () => {
-    DOM.list
-      .items()
-      .appendChild(createPreviewsFragment(books, [0, BOOKS_PER_PAGE]));
-    DOM.search.genres().appendChild(createGenresFragment(genres));
-    DOM.search.authors().appendChild(createAuthorsFragment(authors));
-    DOM.settings.theme().value = isDarkMode() ? "night" : "day";
+    document.querySelector(`[data-list-items]`).appendChild(createPreviewsFragment(books, [0, BOOKS_PER_PAGE]));
+      document.querySelector(`[data-search-genres]`).appendChild(createGenresFragment(genres));
+      document.querySelector(`[data-search-authors]`).appendChild(createAuthorsFragment(authors));
+      document.querySelector(`[data-settings-theme]`).value = isDarkMode() ? "night" : "day";
     setTheme(isDarkMode() ? "night" : "day");
 
     const remaining = books.length - BOOKS_PER_PAGE;
-    DOM.list.button().innerText = `Show more (${remaining})`;
+    document.querySelector(`[data-list-button]`).innerText = `Show more (${remaining})`;
   };
 
   /**
