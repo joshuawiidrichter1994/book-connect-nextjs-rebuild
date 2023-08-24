@@ -4,52 +4,46 @@ function Search(props) {
   const { Book, books, authors, BOOKS_PER_PAGE, genres } = props;
   let { page, matches } = props;
 
-  const actions = {
-    list: {
-      updateRemaining: () => {
-        const initial = matches.length - page * BOOKS_PER_PAGE;
-        const hasRemaining = initial > 0;
+  const updateRemaining = () => {
+    const initial = matches.length - page * BOOKS_PER_PAGE;
+    const hasRemaining = initial > 0;
 
-        const remaining = hasRemaining ? initial : 0;
+    const remaining = hasRemaining ? initial : 0;
 
-        DOM.list.button().disabled = !hasRemaining;
-        DOM.list.button().innerHTML = /* html */ `
+    document.querySelector(`[data-list-button]`).disabled = !hasRemaining;
+    document.querySelector(`[data-list-button]`).innerHTML = /* html */ `
                 <span>Show more</span>
                 <span class="list__remaining"> (${remaining})</span>
             `;
-      },
+  };
 
-      recreate: (display) => {
-        matches = display;
-        page = 1;
+  const recreate = (display) => {
+    matches = display;
+    page = 1;
 
-        if (display.length < 1) {
-          DOM.list.message().classList.add("list__message_show");
-        } else {
-          DOM.list.message().classList.remove("list__message_show");
-        }
+    if (display.length < 1) {
+      document.querySelector(`[data-list-message]`).classList.add("list__message_show");
+    } else {
+      document.querySelector(`[data-list-message]`).classList.remove("list__message_show");
+    }
 
-        DOM.list.items().innerHTML = "";
-        const fragments = createPreviewsFragment(display, [0, 36]);
-        DOM.list.items().appendChild(fragments);
-        actions.list.updateRemaining();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      },
-    },
+    document.querySelector(`[data-list-items]`).innerHTML = "";
+    const fragments = createPreviewsFragment(display, [0, 36]);
+    document.querySelector(`[data-list-items]`).appendChild(fragments);
+    updateRemaining();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-    search: {
-      cancel: () => {
-        document.querySelector(`[data-search-overlay]`).open = false;
-      },
+  const cancel = () => {
+    document.querySelector(`[data-search-overlay]`).open = false;
+  };
 
-      submit: (event) => {
-        event.preventDefault();
-        const response = convertSubmit(event);
-        const result = filter(books, response);
-        actions.list.recreate(result);
-        document.querySelector(`[data-search-overlay]`).open = false;
-      },
-    },
+  const submit = (event) => {
+    event.preventDefault();
+    const response = convertSubmit(event);
+    const result = filter(books, response);
+    recreate(result);
+    document.querySelector(`[data-search-overlay]`).open = false;
   };
 
   /**
@@ -166,7 +160,7 @@ function Search(props) {
       <div className={styles.overlay__content}>
         <form
           className={styles.overlay__form}
-          onSubmit={actions.search.submit}
+          onSubmit={submit}
           data-search-form
           id="search"
         >
@@ -202,7 +196,7 @@ function Search(props) {
         <div className={styles.overlay__row}>
           <button
             className={styles.overlay__button}
-            onClick={actions.search.cancel}
+            onClick={cancel}
             data-search-cancel
           >
             Cancel

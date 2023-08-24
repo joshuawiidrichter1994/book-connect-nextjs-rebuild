@@ -14,20 +14,18 @@ function ThemeSettings(props) {
     },
   };
 
-  const actions = {
-    settings: {
-      cancel: () => {
-        document.querySelector(`[data-settings-overlay]`).open = false;
-      },
 
-      submit: (event) => {
+    const  cancel = () => {
+        document.querySelector(`[data-settings-overlay]`).open = false;
+      };
+
+  const    submit = (event) => {
         event.preventDefault();
         const { theme } = convertSubmit(event);
         setTheme(theme || "day");
         document.querySelector(`[data-settings-overlay]`).open = false;
-      },
-    },
-  };
+      };
+
 
   /**
    * @param {SubmitEvent} event
@@ -55,7 +53,7 @@ function ThemeSettings(props) {
       <div className={styles.overlay__content}>
         <form
           className={styles.overlay__form}
-          onSubmit={actions.settings.submit}
+          onSubmit={submit}
           data-settings-form
           id="settings"
         >
@@ -76,7 +74,7 @@ function ThemeSettings(props) {
         <div className={styles.overlay__row}>
           <button
             className={styles.overlay__button}
-            onClick={actions.settings.cancel}
+            onClick={cancel}
             data-settings-cancel
           >
             Cancel

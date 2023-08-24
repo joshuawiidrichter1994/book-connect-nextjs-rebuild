@@ -4,17 +4,13 @@ function Header(props) {
   const { Book, books, authors, BOOKS_PER_PAGE, genres } = props;
   let { page, matches } = props;
 
-  const actions = {
-    header: {
-      search: () => {
-        document.querySelector(`[data-search-overlay]`).open = true;
-        document.querySelector(`[data-search-title]`).focus();
-      },
+  const search = () => {
+    document.querySelector(`[data-search-overlay]`).open = true;
+    document.querySelector(`[data-search-title]`).focus();
+  };
 
-      settings: () => {
-        document.querySelector(`[data-settings-overlay]`).open = true;
-      },
-    },
+  const settings = () => {
+    document.querySelector(`[data-settings-overlay]`).open = true;
   };
 
   return (
@@ -44,7 +40,7 @@ function Header(props) {
         <div>
           <button
             className={styles.header__button}
-            onClick={actions.header.search}
+            onClick={search}
             data-header-search
           >
             <svg
@@ -58,7 +54,7 @@ function Header(props) {
 
           <button
             className={styles.header__button}
-            onClick={actions.header.settings}
+            onClick={settings}
             data-header-settings
           >
             <svg
