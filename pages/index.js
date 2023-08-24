@@ -4,10 +4,10 @@ import fs from "fs/promises";
 import styles from "./pages.module.css";
 import HTMLHead from "@/components/head/htmlHead";
 import Header from "@/components/header/header";
-import Main from "@/components/main/main";
-import Search from "@/components/search/search";
-import ThemeSettings from "@/components/themeSettings/themeSettings";
-import BookPreview from "@/components/bookPreview/bookPreview";
+import BookDisplay from "@/components/bookComponents/bookDisplay/bookDisplay";
+import Search from "@/components/ui/search/search";
+import ThemeSettings from "@/components/ui/themeSettings/themeSettings";
+import BookPreview from "@/components/bookComponents/bookPreview/bookPreview";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +18,7 @@ export default function Home(props) {
     <>
       <HTMLHead />
       <Header {...props} />
-      <Main {...props} />
+      <BookDisplay {...props} />
       <BookPreview {...props} />
       <Search {...props} />
       <ThemeSettings {...props} />
