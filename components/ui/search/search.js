@@ -1,7 +1,7 @@
 import styles from "./search.module.css";
 
 function Search(props) {
-  const { Book, books, authors, BOOKS_PER_PAGE, genres } = props;
+  const { books, authors, BOOKS_PER_PAGE } = props;
   let { page, matches } = props;
 
   const updateRemaining = () => {

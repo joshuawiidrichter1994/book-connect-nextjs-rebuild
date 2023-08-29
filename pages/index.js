@@ -1,18 +1,13 @@
-import { Inter } from "next/font/google";
-import path from "path";
-import fs from "fs/promises";
 import styles from "./pages.module.css";
-import HTMLHead from "@/components/head/htmlHead";
-import Header from "@/components/header/header";
-import BookDisplay from "@/components/bookComponents/bookDisplay/bookDisplay";
-import Search from "@/components/ui/search/search";
-import ThemeSettings from "@/components/ui/themeSettings/themeSettings";
-import BookPreview from "@/components/bookComponents/bookPreview/bookPreview";
-
-const inter = Inter({ subsets: ["latin"] });
+import HTMLHead from "../components/head/htmlHead";
+import Header from "../components/header/header";
+import BookDisplay from "../components/bookComponents/bookDisplay/bookDisplay";
+import Search from "../components/ui/search/search";
+import ThemeSettings from "../components/ui/themeSettings/themeSettings";
+import BookPreview from "../components/bookComponents/bookPreview/bookPreview";
+import { getAllBooks, getAllGenres, getAllAuthors } from "../helpers/api-util";
 
 export default function Home(props) {
-  const { Book, books, authors, BOOKS_PER_PAGE, genres, author: authorId, id, image, title } = props;
 
   return (
     <>
@@ -28,27 +23,24 @@ export default function Home(props) {
   );
 }
 
-export async function getStaticProps() {
-  const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
-  const jsonData = await fs.readFile(filePath);
-  const data = JSON.parse(jsonData);
 
+export async function getStaticProps() {
+  const books = await getAllBooks();
+  const authors = await getAllAuthors();
+  const genres = await getAllGenres();
   return {
     /**
-     * ...
-     *
-     * @typedef {object} Book
      * @prop {string[]} books
      * @prop {string[]} authors
      * @prop {number} BOOKS_PER_PAGE
      * @prop {string[]} genres
      */
     props: {
-      Book: data.Book,
-      books: data.books,
-      authors: data.authors,
-      BOOKS_PER_PAGE: data.BOOKS_PER_PAGE,
-      genres: data.genres,
+      books: books,
+      authors: authors,
+      BOOKS_PER_PAGE: 36,
+      genres: genres,
     },
+    revalidate: 1800
   };
 }

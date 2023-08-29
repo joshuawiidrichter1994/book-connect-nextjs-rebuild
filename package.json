@@ -11,6 +11,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.33.1",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.17",
     "next": "13.4.17",
@@ -19,6 +20,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^13.4.19",
     "@storybook/addon-essentials": "^7.3.2",
     "@storybook/addon-interactions": "^7.3.2",
     "@storybook/addon-links": "^7.3.2",
@@ -33,7 +35,8 @@
   },
   "eslintConfig": {
     "extends": [
-      "plugin:storybook/recommended"
+      "eslint:recommended",
+      "next"
     ]
   }
 }

@@ -1,8 +1,6 @@
 import styles from "./header.module.css";
 
-function Header(props) {
-  const { Book, books, authors, BOOKS_PER_PAGE, genres } = props;
-  let { page, matches } = props;
+function Header() {
 
   const search = () => {
     document.querySelector(`[data-search-overlay]`).open = true;

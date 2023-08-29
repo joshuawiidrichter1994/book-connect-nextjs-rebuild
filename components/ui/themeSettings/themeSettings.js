@@ -1,7 +1,6 @@
 import styles from "./themeSettings.module.css";
 
-function ThemeSettings(props) {
-  const { Book } = props;
+function ThemeSettings() {
 
   const css = {
     day: {

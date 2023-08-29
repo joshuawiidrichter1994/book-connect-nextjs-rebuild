@@ -1,71 +1,55 @@
-import { Inter } from "next/font/google";
-import path from "path";
-import fs from "fs/promises";
 import styles from "../pages.module.css";
-import HTMLHead from "@/components/head/htmlHead";
-import Header from "@/components/header/header";
-import BookDisplay from "@/components/bookComponents/bookDisplay/bookDisplay";
-import Search from "@/components/ui/search/search";
-import ThemeSettings from "@/components/ui/themeSettings/themeSettings";
-import BookPreview from "@/components/bookComponents/bookPreview/bookPreview";
-
-const inter = Inter({ subsets: ["latin"] });
+import HTMLHead from "../../components/head/htmlHead";
+import Header from "../../components/header/header";
+import BookDisplay from "../../components/bookComponents/bookDisplay/bookDisplay";
+import BookPreview from "../../components/bookComponents/bookPreview/bookPreview";
+import { getBookById, getAllBooks, getAllGenres, getAllAuthors} from "../helpers/api-util";
 
 export default function Preview(props) {
-  const { Book, books, authors, BOOKS_PER_PAGE, genres } = props;
+
+  const book = props.Book;
+
+  if (!book) {
+    return (
+      <div>
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <>
       <HTMLHead />
-      <Header {...props} />
+      <Header />
       <BookDisplay {...props} />
       <BookPreview {...props} />
-      <Search {...props} />
-      <ThemeSettings {...props} />
 
       <div className={styles.backdrop}></div>
     </>
   );
 }
 
-export async function getStaticPaths() {
-  const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
-  const jsonData = await fs.readFile(filePath);
-  const data = JSON.parse(jsonData);
+export async function getStaticProps(context) {
+  const bookId = context.params.bookId;
 
-  const bookIds = data.books.map((book) => book.id); // Extract book IDs
-
-  const paths = bookIds.map((bookId) => ({
-    params: { bookId },
-  }));
+  const book = await getBookById(bookId);
+  const books = await getAllBooks();
+  const authors = await getAllAuthors();
+  const genres = await getAllGenres();
 
   return {
-    paths,
-    fallback: false, // or 'blocking' or true, depending on your requirements
-  };
-}
-
-export async function getStaticProps() {
-  const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
-  const jsonData = await fs.readFile(filePath);
-  const data = JSON.parse(jsonData);
-
-  return {
+    props:{
+      Book: book, 
     /**
-     * ...
-     *
-     * @typedef {object} Book
      * @prop {string[]} books
      * @prop {string[]} authors
      * @prop {number} BOOKS_PER_PAGE
      * @prop {string[]} genres
      */
-    props: {
-      Book: data.Book,
-      books: data.books,
-      authors: data.authors,
-      BOOKS_PER_PAGE: data.BOOKS_PER_PAGE,
-      genres: data.genres,
+      books: books,
+      authors: authors,
+      BOOKS_PER_PAGE: 36,
+      genres: genres,
       /**
        * @type {number}
        */
@@ -74,8 +58,18 @@ export async function getStaticProps() {
       /**
        * @type {Book[]}
        */
-      matches: data.books,
+      matches: books,
     },
-  };
+    revalidate: 30
+  }
 }
 
+export async function getStaticPaths() {
+  const books = await getAllBooks();
+  const paths = books.map(book => ({params: {bookId: book.id}}));
+
+  return {
+    paths: paths,
+    fallback: 'blocking',
+  };
+}

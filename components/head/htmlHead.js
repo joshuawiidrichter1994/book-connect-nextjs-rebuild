@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-function HTMLHead(props) {
+function HTMLHead() {
   return (
     <Head>
     <meta charset="UTF-8" />
