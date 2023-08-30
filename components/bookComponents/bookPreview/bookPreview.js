@@ -1,8 +1,15 @@
 import Image from "next/image";
 import styles from "./bookPreview.module.css";
+import { useRouter } from 'next/router';
+
 
 function BookPreview(props) {
-  const { Book, authors, closePreview } = props;
+  const router = useRouter();
+  const { Book, authors } = props;
+
+  const handleClose = () => {
+    router.push('/'); // Replace '/' with the actual path to your index page
+  };
 
   return (
     <dialog className={styles.overlay} open={true}>
@@ -14,14 +21,14 @@ function BookPreview(props) {
               src={Book.image}
               alt=""
               width={300} // Adjust this value according to the actual width of the image
-              height={400} // Adjust this value according to the actual height of the image
+              height={250} // Adjust this value according to the actual height of the image
             />
             <Image
               className={styles.overlay__image}
               src={Book.image}
               alt=""
               width={300} // Adjust this value according to the actual width of the image
-              height={400} // Adjust this value according to the actual height of the image
+              height={250} // Adjust this value according to the actual height of the image
             />
           </div>
           <div className={styles.overlay__content}>
@@ -39,8 +46,7 @@ function BookPreview(props) {
           </div>
           <div className={styles.overlay__row}>
             <button
-              className={`${styles.overlay__button} ${styles.overlay__button_primary}`}
-              onClick={() => closePreview()}
+              className={`${styles.overlay__button} ${styles.overlay__button_primary}`} onClick={handleClose}
             >
               Close
             </button>

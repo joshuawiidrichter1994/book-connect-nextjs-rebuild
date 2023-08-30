@@ -1,6 +1,8 @@
 import styles from "./search.module.css";
+import { useRouter } from 'next/router';
 
 function Search(props) {
+  const router = useRouter();
   const { books, authors, BOOKS_PER_PAGE } = props;
   let { page, matches } = props;
 
@@ -34,8 +36,8 @@ function Search(props) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const cancel = () => {
-    document.querySelector(`[data-search-overlay]`).open = false;
+  const handleCancel = () => {
+    router.push('/'); // Replace '/' with the actual path to your index page
   };
 
   const submit = (event) => {
@@ -156,7 +158,7 @@ function Search(props) {
   };
 
   return (
-    <dialog className={styles.overlay} data-search-overlay>
+    <dialog className={styles.overlay} data-search-overlay open={true}>
       <div className={styles.overlay__content}>
         <form
           className={styles.overlay__form}
@@ -196,7 +198,7 @@ function Search(props) {
         <div className={styles.overlay__row}>
           <button
             className={styles.overlay__button}
-            onClick={cancel}
+            onClick={handleCancel}
             data-search-cancel
           >
             Cancel

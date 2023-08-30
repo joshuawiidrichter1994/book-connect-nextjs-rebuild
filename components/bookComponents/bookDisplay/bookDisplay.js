@@ -3,7 +3,7 @@ import BookItem from "../book/bookItem";
 import styles from "./bookDisplay.module.css";
 
 function BookDisplay(props) {
-  const { books, BOOKS_PER_PAGE, openPreview } = props;
+  const { books, BOOKS_PER_PAGE} = props;
 
   const [visibleBooks, setVisibleBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,7 +29,6 @@ function BookDisplay(props) {
             Book={Book}
             authors={props.authors}
             authorId={Book.author}
-            openPreview={openPreview}
           />
         ))}
       </div>

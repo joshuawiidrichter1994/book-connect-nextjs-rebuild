@@ -11,7 +11,7 @@ function BookItem(props) {
   const authorName = authors[authorId];
 
   return (
-    <Link href={`/${Book.id}`}>
+    <Link href={`/preview/${Book.id}`}>
       <button className={styles.preview} data-preview={Book.id}>
         <Image
           className={styles.preview__image}

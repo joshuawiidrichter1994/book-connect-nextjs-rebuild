@@ -1,6 +1,8 @@
 import styles from "./themeSettings.module.css";
+import { useRouter } from 'next/router';
 
 function ThemeSettings() {
+  const router = useRouter();
 
   const css = {
     day: {
@@ -14,9 +16,9 @@ function ThemeSettings() {
   };
 
 
-    const  cancel = () => {
-        document.querySelector(`[data-settings-overlay]`).open = false;
-      };
+  const handleCancel = () => {
+    router.push('/'); // Replace '/' with the actual path to your index page
+  };
 
   const    submit = (event) => {
         event.preventDefault();
@@ -48,7 +50,7 @@ function ThemeSettings() {
   };
 
   return (
-    <dialog className={styles.overlay} data-settings-overlay>
+    <dialog className={styles.overlay} data-settings-overlay open={true}>
       <div className={styles.overlay__content}>
         <form
           className={styles.overlay__form}
@@ -73,7 +75,7 @@ function ThemeSettings() {
         <div className={styles.overlay__row}>
           <button
             className={styles.overlay__button}
-            onClick={cancel}
+            onClick={handleCancel}
             data-settings-cancel
           >
             Cancel
