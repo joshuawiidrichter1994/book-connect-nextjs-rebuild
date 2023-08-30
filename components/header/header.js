@@ -1,21 +1,12 @@
-import styles from "./header.module.css";
+import styles from './header.module.css';
 
-function Header() {
-
-  const search = () => {
-    document.querySelector(`[data-search-overlay]`).open = true;
-    document.querySelector(`[data-search-title]`).focus();
-  };
-
-  const settings = () => {
-    document.querySelector(`[data-settings-overlay]`).open = true;
-  };
+const Header = () => {
 
   return (
     <header className={styles.header}>
       <div className={styles.header__inner}>
         <div className={styles.header__logo}>
-          <svg
+        <svg
             className={styles.header__shape}
             viewBox="0 0 89 68"
             xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +29,6 @@ function Header() {
         <div>
           <button
             className={styles.header__button}
-            onClick={search}
             data-header-search
           >
             <svg
@@ -52,7 +42,6 @@ function Header() {
 
           <button
             className={styles.header__button}
-            onClick={settings}
             data-header-settings
           >
             <svg
@@ -70,3 +59,4 @@ function Header() {
 }
 
 export default Header;
+

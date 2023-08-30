@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 function BookItem(props) {
-  const { id, Book, authors, authorId } = props; // Destructure authors and authorId
+  const { Book, authors, authorId } = props; // Destructure authors and authorId
 
   //const exploreLink = `/events/${id}`;
 
@@ -12,7 +12,7 @@ function BookItem(props) {
 
   return (
     <Link href={`/${Book.id}`}>
-      <button className={styles.preview} data-preview={id}>
+      <button className={styles.preview} data-preview={Book.id}>
         <Image
           className={styles.preview__image}
           src={Book.image}

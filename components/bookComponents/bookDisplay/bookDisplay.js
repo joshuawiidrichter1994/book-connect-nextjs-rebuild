@@ -3,7 +3,7 @@ import BookItem from "../book/bookItem";
 import styles from "./bookDisplay.module.css";
 
 function BookDisplay(props) {
-  const { books, BOOKS_PER_PAGE } = props;
+  const { books, BOOKS_PER_PAGE, openPreview } = props;
 
   const [visibleBooks, setVisibleBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,13 +23,13 @@ function BookDisplay(props) {
   return (
     <main className={styles.list}>
       <div className={styles.list__items} data-list-items>
-        {visibleBooks.map((book) => (
+        {visibleBooks.map((Book) => (
           <BookItem
-            key={book.id}
-            id={book.id}
-            book={book}
+            key={Book.id}
+            Book={Book}
             authors={props.authors}
-            authorId={book.author}
+            authorId={Book.author}
+            openPreview={openPreview}
           />
         ))}
       </div>

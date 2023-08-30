@@ -6,54 +6,17 @@ const supabase = createClient(
 );
 
 export async function getAllBooks() {
-  //const response = await fetch("/dummy-backend.json");
-  //const data = await response.json();
-  const data = supabase.from("books").select();
-  console.log(data);
-  const books = [];
-/*
-  for (const key in data.books) {
-    books.push({
-      id: key,
-      ...data[key],
-    });
-  }
-  console.log(books);
-  */
+  const { data: books } = await supabase.from("books").select("*");
   return books;
 }
 
 export async function getAllGenres() {
-  //const response = await fetch("/dummy-backend.json");
-  //const data = await response.json();
-  const data = supabase.from("genres").select();
-  console.log(data);
-  const genres = [];
-/*
-  for (const key in data) {
-    genres.push({
-      id: key,
-      ...data[key],
-    });
-  }
-*/
+  const { data: genres } = await supabase.from("genres").select("*");
   return genres;
 }
 
 export async function getAllAuthors() {
-  //const response = await fetch("../data/dummy-backend.json");
-  //const data = await response.json();
-  const data = supabase.from("authors").select();
-  console.log(data);
-  const authors = [];
-/*
-  for (const key in data) {
-    authors.push({
-      id: key,
-      ...data[key],
-    });
-  }
-*/
+  const { data: authors } = await supabase.from("authors").select("*");
   return authors;
 }
 
